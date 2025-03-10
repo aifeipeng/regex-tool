@@ -2,6 +2,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import React, { useMemo } from 'react'
 import { highlightColors } from './utils'
+import { useTheme } from '@mui/material/styles';
 
 export function ColorRegexText({
 	regexString,
@@ -12,28 +13,29 @@ export function ColorRegexText({
 	flags: string
 	delimiter?: string
 }) {
-	const coloureRegex = useMemo(() => {
+    const theme = useTheme()
+	const colorRegex = useMemo(() => {
 		const arrayOfRegex = Array.from(regexString)
-		const arryOfParts: Array<{ string: string; color: number | undefined }> = []
+		const arrayOfParts: Array<{ string: string; color: number | undefined }> = []
 		let colorCounter = 0
 		let parenthesisCounter = 0
-		let arryOfPartsIndex = 0
+		let arrayOfPartsIndex = 0
 		let maxDepthOfNestedGroups = 0
 		arrayOfRegex.forEach(char => {
 			if (char !== '(' && char !== ')') {
-				arryOfParts[arryOfPartsIndex] = {
-					string: arryOfParts[arryOfPartsIndex]?.string ? arryOfParts[arryOfPartsIndex].string.concat(char) : char,
+				arrayOfParts[arrayOfPartsIndex] = {
+					string: arrayOfParts[arrayOfPartsIndex]?.string ? arrayOfParts[arrayOfPartsIndex].string.concat(char) : char,
 					color: undefined,
 				}
 			} else if (char === '(') {
-				arryOfPartsIndex++
-				arryOfParts[arryOfPartsIndex] = { string: '(', color: colorCounter + parenthesisCounter }
+				arrayOfPartsIndex++
+				arrayOfParts[arrayOfPartsIndex] = { string: '(', color: colorCounter + parenthesisCounter }
 				parenthesisCounter++
-				arryOfPartsIndex++
+				arrayOfPartsIndex++
 			} else if (char === ')') {
-				arryOfPartsIndex++
+				arrayOfPartsIndex++
 				parenthesisCounter--
-				arryOfParts[arryOfPartsIndex] = { string: ')', color: colorCounter + parenthesisCounter }
+				arrayOfParts[arrayOfPartsIndex] = { string: ')', color: colorCounter + parenthesisCounter }
 				if (parenthesisCounter !== 0) {
 					maxDepthOfNestedGroups++
 				}
@@ -41,10 +43,10 @@ export function ColorRegexText({
 					colorCounter = colorCounter + maxDepthOfNestedGroups + 1
 					maxDepthOfNestedGroups = 0
 				}
-				arryOfPartsIndex++
+				arrayOfPartsIndex++
 			}
 		})
-		return arryOfParts.map((word, i) => {
+		return arrayOfParts.map((word, i) => {
 			return (
 				<Typography
 					component="span"
@@ -59,14 +61,14 @@ export function ColorRegexText({
 
 	return (
 		<Box sx={{ m: 'auto' }}>
-			<Typography color="text.secondary" component="span">
+			<Typography color={theme.palette.text.secondary} component="span">
 				{delimiter}
 			</Typography>
-			{coloureRegex}
-			<Typography color="text.secondary" component="span">
+			{colorRegex}
+			<Typography color={theme.palette.text.secondary} component="span">
 				{delimiter}
 			</Typography>
-			<Typography color="text.hint" component="span">
+			<Typography color={theme.palette.info.main} component="span">
 				{flags}
 			</Typography>
 		</Box>

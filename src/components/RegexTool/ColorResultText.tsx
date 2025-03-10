@@ -2,6 +2,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import React from 'react'
 import { highlightColors, matchColor } from './utils'
+import { useTheme } from '@mui/material/styles';
 
 const createTextArrayWithColor = ({ regexResults, text }: { regexResults: RegExpExecArray[]; text: string }) => {
 	const arrayOfText = Array.from(text)
@@ -109,9 +110,10 @@ const createTextArrayWithColor = ({ regexResults, text }: { regexResults: RegExp
 
 export function ColorResultText({ regexResults, text }: { regexResults: RegExpExecArray[]; text: string }) {
 	const arryOfColoredStrings = createTextArrayWithColor({ regexResults, text })
+    const theme = useTheme()
 
 	return (
-		<Box>
+		<Box sx={{backgroundColor: theme.palette.background.paper}}>
 			{arryOfColoredStrings.map((part, i) => {
 				if (part.string === '\n' || part.string === '\r') {
 					return <br key={`colored-result-text-${i}`} />
