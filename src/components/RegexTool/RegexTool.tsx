@@ -13,7 +13,6 @@ import Typography from '@mui/material/Typography'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import React, { useEffect, useState } from 'react'
-import { CopyButton } from '../../CopyButton'
 import { ColorRegexText } from './ColorRegexText'
 import { ColorResultText } from './ColorResultText'
 import { Delimiter, Flag, isRegExpExecArray, regexFlags } from './utils'
@@ -156,7 +155,6 @@ export const RegexTool = () => {
 					<FormHelperText>Change delimiter</FormHelperText>
 				</FormControl>
 				<ColorRegexText regexString={regexString} flags={stringFlags} delimiter={delimiter} />
-				<CopyButton textToCopy={`${delimiter}${regexString}${delimiter}${stringFlags}`} />
 			</Box>
 
 			<TextField
