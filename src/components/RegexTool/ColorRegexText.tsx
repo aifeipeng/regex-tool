@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import React, { useMemo } from 'react'
-import { highlightColors } from './utils'
+import { darkerHighlightColors } from './utils'
 import { useTheme } from '@mui/material/styles';
 
 export function ColorRegexText({
@@ -50,7 +50,7 @@ export function ColorRegexText({
 			return (
 				<Typography
 					component="span"
-					sx={{ bgcolor: word.color !== undefined ? highlightColors[word.color % highlightColors.length] : 'initial' }}
+					sx={{ bgcolor: word.color !== undefined ? darkerHighlightColors[word.color % darkerHighlightColors.length] : 'initial' }}
 					key={`color-regex-${i}`}
 				>
 					{word.string}
