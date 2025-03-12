@@ -4,7 +4,7 @@ import React from "react";
 import { highlightColors, matchColor } from "./utils";
 import { useTheme } from "@mui/material/styles";
 
-const createTextArrayWithColor = ({
+export const createTextArrayWithColor = ({
   regexResults,
   text,
 }: {
