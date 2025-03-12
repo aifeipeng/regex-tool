@@ -55,7 +55,30 @@ const createTextArrayWithColor = ({
           continue;
         }
         const [groupStart, groupEnd] = regexResult.indices[indicesIndex];
+        let isNested = false;
 
+        for (
+          let compareIndex = 1;
+          compareIndex < regexResult.indices.length;
+          compareIndex++
+        ) {
+          if (
+            indicesIndex === compareIndex ||
+            !regexResult.indices?.[compareIndex]
+          ) {
+            continue;
+          }
+          const [compareStart, compareEnd] = regexResult.indices[compareIndex];
+
+          if (groupStart >= compareStart && groupEnd <= compareEnd) {
+            isNested = true;
+          }
+        }
+
+        if (isNested) {
+          continue;
+        }
+        
         if (textIndex === groupStart) {
           arrayOfPartsIndex++;
         }
