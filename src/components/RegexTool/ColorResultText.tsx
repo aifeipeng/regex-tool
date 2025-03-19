@@ -12,10 +12,10 @@ export const createTextArrayWithColor = ({
   text: string;
 }) => {
   const arrayOfText = Array.from(text);
-  const arrayOfParts: Array<{
+  const arrayOfParts: {
     string: string;
     color: number | string | undefined;
-  }> = [];
+  }[] = [];
   let arrayOfPartsIndex = 0;
   let colorCounter = 0;
 
